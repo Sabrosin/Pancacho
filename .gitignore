@@ -1,0 +1,35 @@
+
+# entornos virtuales
+vprueba/
+myenv/
+venv/
+.venv/
+
+# archivos temporales de python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# base de datos local
+db.sqlite3
+db.sqlite3-journal
+
+# archivos privados y variables de entorno
+.env
+.env.*
+!.env.example
+
+# archivos temporales
+*.log
+
+# configuracion del editor
+.vscode/
+.idea/
+
+# archivos generados por el sistema
+.DS_Store
+Thumbs.db
+
+# archivos generados por collectstatic
+staticfiles/
+git --version
