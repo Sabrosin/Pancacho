@@ -1,22 +1,28 @@
-"""
-URL configuration for proyecto_noticias project.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
+# importa las herramientas para configurar las rutas
 from django.contrib import admin
 from django.urls import path
 
+# importa las configuraciones de django
+from django.conf import settings
+
+# importa la herramienta para gestionar archivos multimedia
+from django.conf.urls.static import static
+
+
+# lista de rutas principales del proyecto
 urlpatterns = [
+
+    # ruta para acceder al panel administrativo de django
     path('admin/', admin.site.urls),
+
 ]
+
+
+# configura el acceso a las imagenes durante el desarrollo
+if settings.DEBUG:
+
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT
+    )
