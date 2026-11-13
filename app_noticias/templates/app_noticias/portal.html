@@ -1,0 +1,379 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Portal de noticias del Centro de Automatización Industrial del SENA, regional Valle.">
+
+    <title>Noticias | Centro de Automatización Industrial</title>
+
+    <!-- conecta la hoja de estilos de nuestra aplicacion -->
+    <link rel="stylesheet" href="{% static 'app_noticias/css/estilos.css' %}">
+</head>
+
+<body>
+
+    <!-- enlace para facilitar la navegacion con teclado -->
+    <a href="#contenido" class="saltar-contenido">
+        Saltar al contenido
+    </a>
+
+    <!-- encabezado institucional -->
+    <header class="encabezado">
+
+        <!-- barra superior informativa -->
+        <div class="barra-superior">
+            <div class="contenedor barra-superior-contenido">
+
+                <p>Servicio Nacional de Aprendizaje · SENA</p>
+
+                <p>Regional Valle del Cauca</p>
+
+            </div>
+        </div>
+
+        <!-- identidad visual y navegacion -->
+        <div class="contenedor encabezado-principal">
+
+            <a href="{% url 'inicio' %}" class="identidad">
+
+                <span class="identidad-logo">
+                    SENA
+                </span>
+
+                <span class="identidad-texto">
+                    <strong>Centro de Automatización Industrial</strong>
+                    <small>Portal institucional de noticias</small>
+                </span>
+
+            </a>
+
+            <nav class="navegacion" aria-label="Navegación principal">
+
+                <a href="#inicio">Inicio</a>
+
+                <a href="#noticias">Noticias</a>
+
+                <a href="#institucion">El Centro</a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- contenido principal del portal -->
+    <main id="contenido">
+
+        <!-- seccion principal de bienvenida -->
+        <section class="portada" id="inicio">
+
+            <div class="contenedor portada-contenido">
+
+                <div class="portada-texto">
+
+                    <span class="etiqueta-portada">
+                        ACTUALIDAD INSTITUCIONAL
+                    </span>
+
+                    <h1>
+                        Innovación, tecnología
+                        y formación para el futuro.
+                    </h1>
+
+                    <p>
+                        Conoce las noticias, proyectos, actividades
+                        y acontecimientos más importantes del
+                        Centro de Automatización Industrial
+                        del SENA, regional Valle.
+                    </p>
+
+                    <a href="#noticias" class="boton-principal">
+                        Explorar noticias
+                        <span aria-hidden="true">→</span>
+                    </a>
+
+                </div>
+
+                <div class="portada-elemento">
+
+                    <span class="portada-numero">SENA</span>
+
+                    <span class="portada-descripcion">
+                        Formación que transforma
+                    </span>
+
+                    <div class="portada-linea"></div>
+
+                    <span class="portada-tecnologia">
+                        TECNOLOGÍA · INNOVACIÓN · FUTURO
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- seccion de noticias publicadas -->
+        <section class="seccion-noticias contenedor" id="noticias">
+
+            <div class="encabezado-seccion">
+
+                <div>
+
+                    <span class="subtitulo-seccion">
+                        LO QUE SUCEDE EN NUESTRO CENTRO
+                    </span>
+
+                    <h2>Últimas noticias</h2>
+
+                    <p>
+                        Mantente informado sobre nuestros acontecimientos,
+                        actividades y logros institucionales.
+                    </p>
+
+                </div>
+
+                <span class="indicador-noticias">
+                    ACTUALIDAD SENA
+                </span>
+
+            </div>
+
+
+            <!-- comprueba si existen noticias registradas -->
+            {% if noticias %}
+
+                <!-- noticia destacada: la primera del listado -->
+                {% for noticia in noticias %}
+
+                    {% if forloop.first %}
+
+                        <article class="noticia-destacada">
+
+                            <div class="noticia-destacada-imagen">
+
+                                {% if noticia.imagen %}
+
+                                    <img
+                                        src="{{ noticia.imagen.url }}"
+                                        alt="{{ noticia.titulo }}"
+                                    >
+
+                                {% else %}
+
+                                    <div class="imagen-sin-contenido">
+                                        Imagen no disponible
+                                    </div>
+
+                                {% endif %}
+
+                                <span class="insignia-destacada">
+                                    NOTICIA MÁS RECIENTE
+                                </span>
+
+                            </div>
+
+
+                            <div class="noticia-destacada-contenido">
+
+                                <span class="categoria-noticia">
+                                    ACTUALIDAD INSTITUCIONAL
+                                </span>
+
+                                <h3>{{ noticia.titulo }}</h3>
+
+                                <div class="informacion-noticia">
+
+                                    <span>
+                                        <strong>Fecha:</strong>
+
+                                        <time datetime="{{ noticia.fecha_ocurrencia|date:'Y-m-d' }}">
+                                            {{ noticia.fecha_ocurrencia|date:"d F Y" }}
+                                        </time>
+                                    </span>
+
+                                    <span>
+                                        <strong>Lugar:</strong>
+                                        {{ noticia.lugar }}
+                                    </span>
+
+                                </div>
+
+                                <p class="descripcion-noticia">
+                                    {{ noticia.descripcion }}
+                                </p>
+
+                            </div>
+
+                        </article>
+
+                    {% endif %}
+
+                {% endfor %}
+
+
+                <!-- listado de noticias adicionales -->
+                <div class="rejilla-noticias">
+
+                    {% for noticia in noticias %}
+
+                        {% if not forloop.first %}
+
+                            <article class="tarjeta-noticia">
+
+                                <div class="tarjeta-imagen">
+
+                                    {% if noticia.imagen %}
+
+                                        <img
+                                            src="{{ noticia.imagen.url }}"
+                                            alt="{{ noticia.titulo }}"
+                                        >
+
+                                    {% else %}
+
+                                        <div class="imagen-sin-contenido">
+                                            Imagen no disponible
+                                        </div>
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <div class="tarjeta-contenido">
+
+                                    <span class="categoria-noticia">
+                                        NOTICIA INSTITUCIONAL
+                                    </span>
+
+                                    <h3>{{ noticia.titulo }}</h3>
+
+                                    <div class="informacion-tarjeta">
+
+                                        <p>
+                                            <strong>Fecha:</strong>
+                                            {{ noticia.fecha_ocurrencia|date:"d F Y" }}
+                                        </p>
+
+                                        <p>
+                                            <strong>Lugar:</strong>
+                                            {{ noticia.lugar }}
+                                        </p>
+
+                                    </div>
+
+                                    <p class="descripcion-noticia">
+                                        {{ noticia.descripcion }}
+                                    </p>
+
+                                </div>
+
+                            </article>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                </div>
+
+
+            {% else %}
+
+                <!-- mensaje mostrado cuando aun no existen noticias -->
+                <div class="estado-vacio">
+
+                    <div class="estado-vacio-icono">
+                        ✦
+                    </div>
+
+                    <h3>Estamos preparando nuevas noticias</h3>
+
+                    <p>
+                        Próximamente encontrarás aquí los acontecimientos,
+                        proyectos y actividades más importantes de nuestro centro.
+                    </p>
+
+                    <span>
+                        CENTRO DE AUTOMATIZACIÓN INDUSTRIAL · SENA
+                    </span>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- seccion institucional -->
+        <section class="seccion-institucional" id="institucion">
+
+            <div class="contenedor institucional-contenido">
+
+                <div>
+                    <span class="subtitulo-seccion">
+                        NUESTRO COMPROMISO
+                    </span>
+
+                    <h2>Formamos talento para transformar el futuro.</h2>
+                </div>
+
+                <p>
+                    El Centro de Automatización Industrial impulsa
+                    la formación, el conocimiento y la innovación
+                    tecnológica, promoviendo el desarrollo de
+                    competencias para los desafíos de la industria.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- pie de pagina institucional -->
+    <footer class="pie-pagina">
+
+        <div class="contenedor pie-contenido">
+
+            <div class="pie-identidad">
+
+                <strong>Centro de Automatización Industrial</strong>
+
+                <span>SENA · Regional Valle del Cauca</span>
+
+            </div>
+
+            <p>
+                Portal institucional de noticias.
+                Contenido de demostración cuando corresponda.
+            </p>
+
+            <div class="pie-final">
+
+                <span>
+                    © {% now "Y" %} SENA Regional Valle.
+                </span>
+
+                <span>
+                    Formación · Innovación · Tecnología
+                </span>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

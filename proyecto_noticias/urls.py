@@ -1,7 +1,7 @@
 
 # importa las herramientas para configurar las rutas
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 # importa las configuraciones de django
 from django.conf import settings
@@ -16,10 +16,13 @@ urlpatterns = [
     # ruta para acceder al panel administrativo de django
     path('admin/', admin.site.urls),
 
+    # conecta las rutas de nuestra aplicacion de noticias
+    path('', include('app_noticias.urls')),
+
 ]
 
 
-# configura el acceso a las imagenes durante el desarrollo
+# permite mostrar imagenes durante el desarrollo
 if settings.DEBUG:
 
     urlpatterns += static(
